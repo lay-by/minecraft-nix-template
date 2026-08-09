@@ -8,6 +8,10 @@
     url = "https://slipcor.net/plugins/treeassist/release/latest/TreeAssist.jar";
     hash = "sha256-vSj1Ilbk6U66t4zJ409j1Bl+eyzvlVfPCTmMDWoZsWU=";
   };
+  "plugins/CreeperConduct.jar" = pkgs.fetchurl {
+    url = "https://hangarcdn.papermc.io/plugins/TheGreatCodeholio/CreeperConduct/versions/1.2.0/PAPER/CreeperConduct-1.2.0.jar";
+    hash = "sha256-4OFo0tBCTPrhfzAipSLWrEC3/wn4vU7FiRZl9T2e2JE=";
+  };
   "plugins/SilkSpawners.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/yqj3dcbL/versions/f9lvO5jz/SilkSpawners_v2.jar"; sha512 = "9ac4b393c4d8b4a9405ade71e17d7454dff73acd307f7a5d02386f28ee62ef7f5ae4807988aa7be4c3879492585b6390597e7e1f98ebc423b216c39ae2ac8469"; };
   "plugins/LuckPerms.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar"; sha512 = "188a91f0a543d23bfda32385fca6db63d61e49c8a422bd452a260bd9cbc6a7d7fe45071199e9fca8f3ce43c2b41ee84fd315bd15464577028ff3951a7d4fab27"; };
   "plugins/InfiniteVillagerTrades.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/7pdfxYHV/versions/evMqQmJi/instantrestock_2.6.4.jar"; sha512 = "bbb155e0612d32c546e763759395e0ce62e6480caba236889eafd3ded490a91b6c48cfa3f0a5dba2635689621570d0a802ca0c09786da1f2b500964d8fcd325e"; };
