@@ -191,7 +191,7 @@
         ExecStart=$nix_bin run --no-write-lock-file "path:$repo_dir#minecraft-tmux" -- start
         ExecStop=$nix_bin run --no-write-lock-file "path:$repo_dir#minecraft-tmux" -- stop
         ExecStopPost=$nix_bin run --no-write-lock-file "path:$repo_dir#minecraft-tmux" -- kill
-        TimeoutStopSec=2min
+        TimeoutStopSec=10s
 
         [Install]
         WantedBy=default.target
