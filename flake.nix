@@ -10,7 +10,7 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-      paperServer = nix-minecraft.packages.${system}.paper-server;
+      paperServer = nix-minecraft.legacyPackages.${system}.paperServers.paper-26_2;
       modrinthPrefetch = nix-minecraft.packages.${system}.nix-modrinth-prefetch;
 
       # Evaluate nix-minecraft's NixOS module solely to reuse its generated
