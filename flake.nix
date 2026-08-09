@@ -39,6 +39,9 @@
                     serverProperties = {
                       level-seed = "7979099859567551957";
                       enforce-secure-profile = false;
+                      resource-pack = "https://files.catbox.moe/n7i1ju.zip";
+                      resource-pack-sha1 = "f0bb6175fab7315133a58eb8081a245a83708cc8";
+                      require-resource-pack = true;
                       white-list = true;
                     };
                     whitelist = {
