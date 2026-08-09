@@ -2,28 +2,13 @@
 # Keys match nix-minecraft's servers.<name>.symlinks declaration format.
 { pkgs }:
 {
-  "plugins/EssentialsX.jar" = pkgs.fetchurl {
-    url = "https://cdn.modrinth.com/data/hXiIvTyT/versions/nY6VN1XH/EssentialsX-2.22.0.jar";
-    hash = "sha256-vaRoUQWXf8ouIJggqfCtJCdb0QM5CgMjbzjlm/2sWOY=";
-  };
-  "plugins/ChestsortPlus.jar" = pkgs.fetchurl {
-    url = "https://cdn.modrinth.com/data/nIk7yzza/versions/79T540Ud/chestsort-plus-0.4.0.jar";
-    hash = "sha256-aQlciEdaxNTroJuQ9Gk5PAWsyEeto58LxfaVd1pKYqo=";
-  };
+  "plugins/EssentialsX.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/hXiIvTyT/versions/nY6VN1XH/EssentialsX-2.22.0.jar"; sha512 = "472ecf71924801723643ca6e1f9931297de5aa0874a544f8a719e2e2f7c81af81ef7bcbd38b6e43f0260a9dae6abe42c97907e70e2430e326ff8cff12ebd61cf"; };
+  "plugins/ChestsortPlus.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/nIk7yzza/versions/79T540Ud/chestsort-plus-0.4.0.jar"; sha512 = "7a5d86ff76e6f61d03e81cad132cee5b264baf292c9c0c6db4a309d94e53117f3757a715282696094a09a0e9cb407f2bedc6b7a15e4ed3f62df2cc7086202e12"; };
   "plugins/TreeAssist.jar" = pkgs.fetchurl {
     url = "https://slipcor.net/plugins/treeassist/release/latest/TreeAssist.jar";
     hash = "sha256-vSj1Ilbk6U66t4zJ409j1Bl+eyzvlVfPCTmMDWoZsWU=";
   };
-  "plugins/SilkSpawners.jar" = pkgs.fetchurl {
-    url = "https://cdn.modrinth.com/data/yqj3dcbL/versions/f9lvO5jz/SilkSpawners_v2.jar";
-    hash = "sha256-PiS01Zzc8cmq/OCg81dZ6evn3SuwmA20uVJcB7cZ+dI=";
-  };
-  "plugins/LuckPerms.jar" = pkgs.fetchurl {
-    url = "https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar";
-    hash = "sha256-Sc7LZvof0ioTMDmkkOnB5QlaI4581m650qFv5siXVQ0=";
-  };
-  "plugins/InfiniteVillagerTrades.jar" = pkgs.fetchurl {
-    url = "https://cdn.modrinth.com/data/7pdfxYHV/versions/evMqQmJi/instantrestock_2.6.4.jar";
-    hash = "sha256-YeuPlKme1qDc7z/E/4pY2DAevDt6lMP+mPfj7bPUqD4=";
-  };
+  "plugins/SilkSpawners.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/yqj3dcbL/versions/f9lvO5jz/SilkSpawners_v2.jar"; sha512 = "9ac4b393c4d8b4a9405ade71e17d7454dff73acd307f7a5d02386f28ee62ef7f5ae4807988aa7be4c3879492585b6390597e7e1f98ebc423b216c39ae2ac8469"; };
+  "plugins/LuckPerms.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar"; sha512 = "188a91f0a543d23bfda32385fca6db63d61e49c8a422bd452a260bd9cbc6a7d7fe45071199e9fca8f3ce43c2b41ee84fd315bd15464577028ff3951a7d4fab27"; };
+  "plugins/InfiniteVillagerTrades.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/7pdfxYHV/versions/evMqQmJi/instantrestock_2.6.4.jar"; sha512 = "bbb155e0612d32c546e763759395e0ce62e6480caba236889eafd3ded490a91b6c48cfa3f0a5dba2635689621570d0a802ca0c09786da1f2b500964d8fcd325e"; };
 }

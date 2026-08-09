@@ -11,23 +11,69 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       paperServer = nix-minecraft.packages.${system}.paper-server;
-      pluginSymlinks = import ./plugins.nix { inherit pkgs; };
-      pluginSymlinkCommands =
-        pkgs.lib.concatMapStringsSep "\n" (
-          path:
-          let
-            source = pluginSymlinks.${path};
-          in
-          ''
-            plugin_path=${pkgs.lib.escapeShellArg path}
-            plugin_target="$data_dir/$plugin_path"
-            mkdir -p "$(dirname "$plugin_target")"
-            if [ -e "$plugin_target" ] && [ ! -L "$plugin_target" ]; then
-              mv "$plugin_target" "$plugin_target.bak"
-            fi
-            ln -sfn ${pkgs.lib.escapeShellArg (builtins.toString source)} "$plugin_target"
-          ''
-        ) (pkgs.lib.attrNames pluginSymlinks);
+      modrinthPrefetch = nix-minecraft.packages.${system}.nix-modrinth-prefetch;
+
+      # Evaluate nix-minecraft's NixOS module solely to reuse its generated
+      # EULA, server.properties, plugin symlink, launch, and stop scripts.
+      # The portable wrappers below provide the runtime working directory.
+      minecraftService = managementSystem:
+        (
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              nix-minecraft.nixosModules.minecraft-servers
+              ({ pkgs, ... }: {
+                system.stateVersion = "25.11";
+                services.minecraft-servers = {
+                  enable = true;
+                  eula = true;
+                  # Only the generated service uses this path. The wrappers run
+                  # its scripts from $MINECRAFT_DATA_DIR (or ./server).
+                  dataDir = "/srv/minecraft";
+                  servers.paper = {
+                    enable = true;
+                    autoStart = false;
+                    restart = "no";
+                    package = paperServer;
+                    jvmOpts = "-Xms1G -Xmx3G";
+                    serverProperties = {
+                      level-seed = "7979099859567551957";
+                      enforce-secure-profile = false;
+                      white-list = true;
+                    };
+                    whitelist = {
+                      GingerOffender = "7979bde4-cffd-430f-9ce6-dfa7e1eae75a";
+                      Astrochemistry = "76047b6d-e236-4205-8f9a-a36bf31c2582";
+                      rnask = "e110db4e-e7f0-4d58-a9e7-8cf637266c4f";
+                      HolisticBlock96 = "fc6a41bb-14a2-4185-ab23-d3f17bd0a148";
+                      Hush_h = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
+                    };
+                    operators.Hush_h = {
+                      uuid = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
+                      level = 4;
+                      bypassesPlayerLimit = true;
+                    };
+                    symlinks = import ./plugins.nix { inherit pkgs; };
+                    inherit managementSystem;
+                  };
+                };
+              })
+            ];
+          }
+        ).config.systemd.services.minecraft-server-paper.serviceConfig;
+
+      foregroundService = minecraftService {
+        tmux.enable = false;
+        systemd-socket.enable = true;
+      };
+      tmuxSocket = "/tmp/minecraft-paper.sock";
+      tmuxService = minecraftService {
+        tmux = {
+          enable = true;
+          socketPath = _: tmuxSocket;
+        };
+      };
+      tmuxStop = pkgs.lib.removeSuffix " $MAINPID" tmuxService.ExecStop;
 
       mkApp = name: runtimeInputs: text:
         pkgs.writeShellApplication {
@@ -40,18 +86,11 @@
         mkdir -p "$data_dir"
         cd "$data_dir"
 
-        if [ ! -e eula.txt ]; then
-          printf 'eula=true\n' > eula.txt
-        fi
-        if [ ! -e server.properties ]; then
-          printf 'level-seed=7979099859567551957\nenforce-secure-profile=false\n' > server.properties
-        fi
-        ${pluginSymlinkCommands}
-
-        exec ${paperServer}/bin/minecraft-server -Xms1G -Xmx3G "$@"
+        ${foregroundService.ExecStartPre}
+        exec ${foregroundService.ExecStart}
       '';
 
-      updatePlugins = mkApp "update-plugins" [ pkgs.curl pkgs.jq pkgs.nix ] ''
+      updatePlugins = mkApp "update-plugins" [ pkgs.curl pkgs.jq pkgs.nix modrinthPrefetch ] ''
         repo_dir="$(pwd -P)"
         output="$repo_dir/plugins.nix"
         temporary="$(mktemp "$repo_dir/.plugins.nix.XXXXXX")"
@@ -61,9 +100,9 @@
           target="$1"
           project="$2"
           payload="$(curl -fsSL -G -H 'User-Agent: minecraft-flake-plugin-updater/1.0' --data-urlencode 'loaders=["paper"]' "https://api.modrinth.com/v2/project/$project/version")"
-          url="$(printf '%s' "$payload" | jq -er 'map(select(.version_type == "release")) | sort_by(.date_published) | last | .files[] | select(.primary) | .url')"
-          hash="$(nix store prefetch-file --json --hash-type sha256 --name "$(basename "$target")" "$url" | jq -er .hash)"
-          printf '  "%s" = pkgs.fetchurl {\n    url = "%s";\n    hash = "%s";\n  };\n' "$target" "$url" "$hash"
+          version="$(printf '%s' "$payload" | jq -er 'map(select(.version_type == "release")) | sort_by(.date_published) | last | .id')"
+          prefetch="$(nix-modrinth-prefetch "$version")"
+          printf '  "%s" = pkgs.%s;\n' "$target" "$prefetch"
         }
 
         fetch_treeassist() {
@@ -90,39 +129,30 @@
       '';
 
       minecraftTmux = mkApp "minecraft-tmux" [ pkgs.tmux ] ''
+        data_dir="''${MINECRAFT_DATA_DIR:-$PWD/server}"
         case "''${1:-}" in
           start)
-            if tmux has-session -t minecraft 2>/dev/null; then
-              exit 0
-            fi
-            tmux new-session -d -s minecraft "${minecraftServer}/bin/minecraft-server"
+            mkdir -p "$data_dir"
+            cd "$data_dir"
+            ${tmuxService.ExecStartPre}
+            exec ${tmuxService.ExecStart}
             ;;
           stop)
-            if ! tmux has-session -t minecraft 2>/dev/null; then
-              exit 0
-            fi
-            tmux send-keys -t minecraft stop C-m
-            for _ in $(seq 1 120); do
-              if ! tmux has-session -t minecraft 2>/dev/null; then
-                exit 0
-              fi
-              sleep 1
-            done
-            tmux kill-session -t minecraft
+            cd "$data_dir"
+            exec ${tmuxStop} 0
+            ;;
+          kill)
+            tmux -S ${tmuxSocket} kill-server 2>/dev/null || true
             ;;
           *)
-            echo "usage: minecraft-tmux {start|stop}" >&2
+            echo "usage: minecraft-tmux {start|stop|kill}" >&2
             exit 64
             ;;
         esac
       '';
 
       minecraftConsole = mkApp "minecraft-console" [ pkgs.tmux ] ''
-        if ! tmux has-session -t minecraft 2>/dev/null; then
-          echo "Minecraft is not running in tmux." >&2
-          exit 1
-        fi
-        exec tmux attach-session -t minecraft
+        exec tmux -S ${tmuxSocket} attach
       '';
 
       installMinecraftService = mkApp "install-minecraft-service" [ pkgs.systemd ] ''
@@ -149,7 +179,8 @@
         WorkingDirectory=$repo_dir
         ExecStart=$nix_bin run --no-write-lock-file "path:$repo_dir#minecraft-tmux" -- start
         ExecStop=$nix_bin run --no-write-lock-file "path:$repo_dir#minecraft-tmux" -- stop
-        TimeoutStopSec=130
+        ExecStopPost=$nix_bin run --no-write-lock-file "path:$repo_dir#minecraft-tmux" -- kill
+        TimeoutStopSec=2min
 
         [Install]
         WantedBy=default.target
