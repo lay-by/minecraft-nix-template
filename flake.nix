@@ -194,7 +194,7 @@
       packages.${system} = {
         minecraft-server = minecraftServer;
         minecraft-tmux = minecraftTmux;
-        minecraft-console = minecraftConsole;
+        console = minecraftConsole;
         install-minecraft-service = installMinecraftService;
         update-plugins = updatePlugins;
         default = minecraftServer;
@@ -205,7 +205,7 @@
           type = "app";
           program = "${minecraftServer}/bin/minecraft-server";
         };
-        minecraft-console = {
+        console = {
           type = "app";
           program = "${minecraftConsole}/bin/minecraft-console";
         };
