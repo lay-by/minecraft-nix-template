@@ -45,9 +45,10 @@
                       GingerOffender = "7979bde4-cffd-430f-9ce6-dfa7e1eae75a";
                       Astrochemistry = "76047b6d-e236-4205-8f9a-a36bf31c2582";
                       rnask = "e110db4e-e7f0-4d58-a9e7-8cf637266c4f";
-                      HolisticBlock96 = "fc6a41bb-14a2-4185-ab23-d3f17bd0a148";
-                      Hush_h = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
-                    };
+                    HolisticBlock96 = "fc6a41bb-14a2-4185-ab23-d3f17bd0a148";
+                    Hush_h = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
+                    Wild_Bob = "8aab3377-8e4f-47e2-b21e-aedfcfc19b0a";
+                  };
                     operators.Hush_h = {
                       uuid = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
                       level = 4;
@@ -129,6 +130,7 @@
           fetch_modrinth "plugins/ChestsortPlus.jar" 'chestsort%2B'
           fetch_treeassist
           fetch_hangar "plugins/CreeperConduct.jar" TheGreatCodeholio CreeperConduct
+          fetch_hangar "plugins/Chunky.jar" pop4959 Chunky
           fetch_modrinth "plugins/SilkSpawners.jar" silkspawners
           fetch_modrinth "plugins/LuckPerms.jar" luckperms
           fetch_modrinth "plugins/InfiniteVillagerTrades.jar" infinite-villager-trading
