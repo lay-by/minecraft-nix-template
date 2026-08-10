@@ -39,6 +39,7 @@
                     serverProperties = {
                       level-seed = "7979099859567551957";
                       enforce-secure-profile = false;
+                      spawn-protection = 0;
                       white-list = true;
                     };
                     whitelist = {
@@ -47,7 +48,6 @@
                       rnask = "e110db4e-e7f0-4d58-a9e7-8cf637266c4f";
                     HolisticBlock96 = "fc6a41bb-14a2-4185-ab23-d3f17bd0a148";
                     Hush_h = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
-                    Wild_Bob = "8aab3377-8e4f-47e2-b21e-aedfcfc19b0a";
                   };
                     operators.Hush_h = {
                       uuid = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
