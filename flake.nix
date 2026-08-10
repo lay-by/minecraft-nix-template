@@ -46,6 +46,8 @@
                       GingerOffender = "7979bde4-cffd-430f-9ce6-dfa7e1eae75a";
                       Astrochemistry = "76047b6d-e236-4205-8f9a-a36bf31c2582";
                       rnask = "e110db4e-e7f0-4d58-a9e7-8cf637266c4f";
+                      KuceTX = "22e074ad-3eb2-4c2e-a788-4f8c0bb84b29";
+                      EggyWilly = "c5c428ab-9351-4a39-aed5-f77e87761bcd";
                     HolisticBlock96 = "fc6a41bb-14a2-4185-ab23-d3f17bd0a148";
                     Hush_h = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
                   };
