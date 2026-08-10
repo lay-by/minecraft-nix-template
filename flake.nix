@@ -168,6 +168,10 @@
         exec tmux -S ${tmuxSocket} attach
       '';
 
+      restart = mkApp "restart" [ pkgs.systemd ] ''
+        exec systemctl --user restart minecraft-server
+      '';
+
       installMinecraftService = mkApp "install-minecraft-service" [ pkgs.systemd ] ''
         repo_dir="$(pwd -P)"
         nix_bin="$(command -v nix || true)"
@@ -208,6 +212,7 @@
         minecraft-server = minecraftServer;
         minecraft-tmux = minecraftTmux;
         console = minecraftConsole;
+        restart = restart;
         install-minecraft-service = installMinecraftService;
         update-plugins = updatePlugins;
         default = minecraftServer;
@@ -221,6 +226,10 @@
         console = {
           type = "app";
           program = "${minecraftConsole}/bin/minecraft-console";
+        };
+        restart = {
+          type = "app";
+          program = "${restart}/bin/restart";
         };
         minecraft-tmux = {
           type = "app";
