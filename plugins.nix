@@ -20,4 +20,5 @@
   "plugins/LuckPerms.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar"; sha512 = "188a91f0a543d23bfda32385fca6db63d61e49c8a422bd452a260bd9cbc6a7d7fe45071199e9fca8f3ce43c2b41ee84fd315bd15464577028ff3951a7d4fab27"; };
   "plugins/InfiniteVillagerTrades.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/7pdfxYHV/versions/evMqQmJi/instantrestock_2.6.4.jar"; sha512 = "bbb155e0612d32c546e763759395e0ce62e6480caba236889eafd3ded490a91b6c48cfa3f0a5dba2635689621570d0a802ca0c09786da1f2b500964d8fcd325e"; };
   "plugins/WanderingTrades.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/ZfddU72x/versions/hFXagHpi/WanderingTrades-1.9.5.jar"; sha512 = "4d2547f4cb081f70b39d8f5d7b3dba169ef1c574a273e4a8308f8a91ada7addafc5135454c58f5c321319274ae9c5e87a0c43c0496110e4fbf1b18901e0a7d81"; };
+  "plugins/WorldEdit.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/1u6JkXh5/versions/F5ea2ov3/worldedit-bukkit-7.4.5.jar"; sha512 = "a383492fac6bfb4d43a257dfa7b5fc076aae503a71151b463de4fe80e6f3d5fc11209eaf4097baa115f3febf0adc40ca0a1ecda227b8439b429d0a4ba3a63a4f"; };
 }
