@@ -16,7 +16,8 @@
     url = "https://hangarcdn.papermc.io/plugins/pop4959/Chunky/versions/1.5.3/PAPER/Chunky-Bukkit-1.5.3.jar";
     hash = "sha256-Uw0sdDCpajmVc5G3CIvhRNqjEI92ZYltHCOqjdSvMvM=";
   };
-  "plugins/SilkSpawners.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/yqj3dcbL/versions/f9lvO5jz/SilkSpawners_v2.jar"; sha512 = "9ac4b393c4d8b4a9405ade71e17d7454dff73acd307f7a5d02386f28ee62ef7f5ae4807988aa7be4c3879492585b6390597e7e1f98ebc423b216c39ae2ac8469"; };
+  "plugins/SilkSpawners.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/yqj3dcbL/versions/DeJkR4Fb/SilkSpawners_v2.jar"; sha512 = "e34cee56dbdbcde47d8175156c8fab91cede755223359fa7f508b5ae4ada02523d7d5ce6393fa78a711c8203d9f2811953ef7f7dbfa2540aedbc2577185aaef4"; };
   "plugins/LuckPerms.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/Vebnzrzj/versions/b0mk8uS6/LuckPerms-Bukkit-5.5.71.jar"; sha512 = "188a91f0a543d23bfda32385fca6db63d61e49c8a422bd452a260bd9cbc6a7d7fe45071199e9fca8f3ce43c2b41ee84fd315bd15464577028ff3951a7d4fab27"; };
   "plugins/InfiniteVillagerTrades.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/7pdfxYHV/versions/evMqQmJi/instantrestock_2.6.4.jar"; sha512 = "bbb155e0612d32c546e763759395e0ce62e6480caba236889eafd3ded490a91b6c48cfa3f0a5dba2635689621570d0a802ca0c09786da1f2b500964d8fcd325e"; };
+  "plugins/WanderingTrades.jar" = pkgs.fetchurl { url = "https://cdn.modrinth.com/data/ZfddU72x/versions/hFXagHpi/WanderingTrades-1.9.5.jar"; sha512 = "4d2547f4cb081f70b39d8f5d7b3dba169ef1c574a273e4a8308f8a91ada7addafc5135454c58f5c321319274ae9c5e87a0c43c0496110e4fbf1b18901e0a7d81"; };
 }

@@ -136,6 +136,7 @@
           fetch_modrinth "plugins/SilkSpawners.jar" silkspawners
           fetch_modrinth "plugins/LuckPerms.jar" luckperms
           fetch_modrinth "plugins/InfiniteVillagerTrades.jar" infinite-villager-trading
+          fetch_modrinth "plugins/WanderingTrades.jar" wanderingtrades
           printf '%s\n' '}'
         } > "$temporary"
 
