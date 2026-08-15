@@ -48,6 +48,7 @@
                       rnask = "e110db4e-e7f0-4d58-a9e7-8cf637266c4f";
                       KuceTX = "22e074ad-3eb2-4c2e-a788-4f8c0bb84b29";
                       EggyWilly = "c5c428ab-9351-4a39-aed5-f77e87761bcd";
+                      WhiteWillyHarv = "16500282-057c-4e8b-934f-c584b0b3dfd7";
                     HolisticBlock96 = "fc6a41bb-14a2-4185-ab23-d3f17bd0a148";
                     Hush_h = "ab51fd8d-9f55-49f3-a12d-ea981dde53df";
                   };
