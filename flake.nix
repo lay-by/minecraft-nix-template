@@ -12,10 +12,6 @@
       pkgs = import nixpkgs { inherit system; };
       paperServer = nix-minecraft.legacyPackages.${system}.paperServers.paper-26_2;
       modrinthPrefetch = nix-minecraft.packages.${system}.nix-modrinth-prefetch;
-
-      # Evaluate nix-minecraft's NixOS module solely to reuse its generated
-      # EULA, server.properties, plugin symlink, launch, and stop scripts.
-      # The portable wrappers below provide the runtime working directory.
       minecraftService = managementSystem:
         (
           nixpkgs.lib.nixosSystem {
@@ -42,6 +38,7 @@
                       spawn-protection = 0;
                       white-list = true;
                     };
+                    # Note, /whitelist is not persistent across server restarts
                     whitelist = {
                       GingerOffender = "7979bde4-cffd-430f-9ce6-dfa7e1eae75a";
                       Astrochemistry = "76047b6d-e236-4205-8f9a-a36bf31c2582";
@@ -139,6 +136,7 @@
           fetch_modrinth "plugins/InfiniteVillagerTrades.jar" infinite-villager-trading
           fetch_modrinth "plugins/WanderingTrades.jar" wanderingtrades
           fetch_modrinth "plugins/WorldEdit.jar" worldedit
+          fetch_modrinth "plugins/Dynmap.jar" dynmap
           printf '%s\n' '}'
         } > "$temporary"
 
