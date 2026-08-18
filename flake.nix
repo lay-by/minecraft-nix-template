@@ -136,7 +136,6 @@
           fetch_modrinth "plugins/InfiniteVillagerTrades.jar" infinite-villager-trading
           fetch_modrinth "plugins/WanderingTrades.jar" wanderingtrades
           fetch_modrinth "plugins/WorldEdit.jar" worldedit
-          fetch_modrinth "plugins/Dynmap.jar" dynmap
           printf '%s\n' '}'
         } > "$temporary"
 
